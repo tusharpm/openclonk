@@ -72,6 +72,7 @@ before_script:
       .
 
 script:
+    - ls -l
     - ${BSYS/*#/} all netpuncher tests aul_test
     - ./tests/tests 
     - ./tests/aul_test
