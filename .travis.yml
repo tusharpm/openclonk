@@ -6,43 +6,43 @@ sudo: required # not actually required, but the virtualization builds are more s
 
 matrix:
   include:
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.9', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'libgtest-dev']
-      env: 
-          - CCOMPILER=gcc-4.9 
-          - CXXCOMPILER=g++-4.9 
-          - TYPE=Debug # somehow, the linking fails for release builds. If someone could fix that, that would be great. 
-          - BSYS="Unix Makefiles#make -k"
+    # - os: linux
+    #   compiler: gcc
+    #   addons:
+    #     apt:
+    #       sources: ['ubuntu-toolchain-r-test']
+    #       packages: ['g++-4.9', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'libgtest-dev']
+    #   env: 
+    #       - CCOMPILER=gcc-4.9 
+    #       - CXXCOMPILER=g++-4.9 
+    #       - TYPE=Debug # somehow, the linking fails for release builds. If someone could fix that, that would be great. 
+    #       - BSYS="Unix Makefiles#make -k"
 
-    - os: linux
-      compiler: gcc
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-5', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'ninja-build', 'libgtest-dev']
-      env:
-          - CCOMPILER=gcc-5
-          - CXXCOMPILER=g++-5
-          - TYPE=Debug 
-          - CXX_FLAGS="-fdiagnostics-color"
-          - BSYS="Ninja#ninja -k30" PCH=on
+    # - os: linux
+    #   compiler: gcc
+    #   addons:
+    #     apt:
+    #       sources: ['ubuntu-toolchain-r-test']
+    #       packages: ['g++-5', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'ninja-build', 'libgtest-dev']
+    #   env:
+    #       - CCOMPILER=gcc-5
+    #       - CXXCOMPILER=g++-5
+    #       - TYPE=Debug 
+    #       - CXX_FLAGS="-fdiagnostics-color"
+    #       - BSYS="Ninja#ninja -k30" PCH=on
 
-    - os: linux
-      compiler: clang
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.8']
-          packages: ['clang-3.8', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'ninja-build', 'libc++-dev', 'libc++1', 'libgtest-dev']
-      env: 
-          - CCOMPILER=clang-3.8 
-          - CXXCOMPILER=clang++-3.8 
-          - CXX_FLAGS="-stdlib=libc++ -fcolor-diagnostics" 
-          - TYPE=Debug 
-          - BSYS="Ninja#ninja -k30"
+    # - os: linux
+    #   compiler: clang
+    #   addons:
+    #     apt:
+    #       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.8']
+    #       packages: ['clang-3.8', 'build-essential', 'cmake', 'libfreetype6-dev', 'libgl1-mesa-dev', 'libglew-dev', 'libgtk-3-dev', 'libjpeg-dev', 'libpng-dev', 'libsdl2-dev', 'libupnp-dev', 'libxrandr-dev', 'x11proto-core-dev', 'zlib1g-dev', 'libalut0', 'ninja-build', 'libc++-dev', 'libc++1', 'libgtest-dev']
+    #   env: 
+    #       - CCOMPILER=clang-3.8 
+    #       - CXXCOMPILER=clang++-3.8 
+    #       - CXX_FLAGS="-stdlib=libc++ -fcolor-diagnostics" 
+    #       - TYPE=Debug 
+    #       - BSYS="Ninja#ninja -k30"
 
     - os: osx
       compiler: clang
@@ -50,7 +50,7 @@ matrix:
         - CCOMPILER=clang
         - CXXCOMPILER=clang++
         - TYPE=RelWithDebInfo
-        - BSYS="Ninja#ninja -k30"
+        - BSYS="Xcode#cmake --build ."
       install:
         - brew update
         - brew install freetype glew jpeg-turbo libpng libogg libvorbis sdl2 sdl2_mixer ninja
