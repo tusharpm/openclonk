@@ -51,7 +51,7 @@ matrix:
         - CCOMPILER=clang
         - CXXCOMPILER=clang++
         - TYPE=RelWithDebInfo
-        - BSYS="Xcode#cmake --build . -- -target"
+        - BSYS="Xcode#cmake --build . && echo"
       install:
         - brew update
         - brew install freetype glew jpeg-turbo libpng libogg libvorbis sdl2 sdl2_mixer ninja
