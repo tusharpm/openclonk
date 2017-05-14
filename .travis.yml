@@ -45,12 +45,13 @@ matrix:
     #       - BSYS="Ninja#ninja -k30"
 
     - os: osx
+      osx_image: xcode8.3
       compiler: clang
       env:
         - CCOMPILER=clang
         - CXXCOMPILER=clang++
         - TYPE=RelWithDebInfo
-        - BSYS="Xcode#make"
+        - BSYS="Xcode#cmake --build . -- -target"
       install:
         - brew update
         - brew install freetype glew jpeg-turbo libpng libogg libvorbis sdl2 sdl2_mixer ninja
