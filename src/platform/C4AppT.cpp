@@ -64,7 +64,7 @@ bool C4AbstractApp::GetIndexedDisplayMode(int32_t iIndex, int32_t *piXRes, int32
 
 void C4AbstractApp::RestoreVideoMode() {}
 
-bool C4AbstractApp::SetVideoMode(int, int, unsigned int, unsigned int, bool)
+bool C4AbstractApp::SetVideoMode(int, int, int, unsigned int, bool)
 {
 	return true;
 }

@@ -51,6 +51,7 @@
 #include "script/C4AulExec.h"
 #include "script/C4Effect.h"
 
+#ifndef USE_CONSOLE
 static void DrawVertex(C4Facet &cgo, float tx, float ty, int32_t col, int32_t contact)
 {
 	if (Inside<int32_t>(tx,cgo.X,cgo.X+cgo.Wdt) && Inside<int32_t>(ty,cgo.Y,cgo.Y+cgo.Hgt))
@@ -60,6 +61,7 @@ static void DrawVertex(C4Facet &cgo, float tx, float ty, int32_t col, int32_t co
 		if (contact) pDraw->DrawFrameDw(cgo.Surface,tx-1.5,ty-1.5,tx+1.5,ty+1.5,C4RGB(0xff, 0xff, 0xff));
 	}
 }
+#endif
 
 void C4Action::SetBridgeData(int32_t iBridgeTime, bool fMoveClonk, bool fWall, int32_t iBridgeMaterial)
 {

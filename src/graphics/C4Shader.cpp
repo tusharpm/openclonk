@@ -604,8 +604,8 @@ StdStrBuf C4Shader::Build(const ShaderSliceList &Slices, bool fDebug)
 	Buf.Append("}\n");
 
 	Buf.Append("// File number to name mapping:\n//\t  0: <built-in shader code>\n");
-	for (int i = 0; i < SourceFiles.size(); ++i)
-		Buf.AppendFormat("//\t%3d: %s\n", i + 1, SourceFiles[i].c_str());
+	for (size_t i = 0; i < SourceFiles.size(); ++i)
+		Buf.AppendFormat("//\t%3lu: %s\n", i + 1, SourceFiles[i].c_str());
 	return Buf;
 }
 

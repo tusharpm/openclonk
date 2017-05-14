@@ -76,7 +76,7 @@ namespace std {
 				auto unpack = make_tuple(v6.sin6_family, v6.sin6_port, v6.sin6_flowinfo, std::string((char*) v6.sin6_addr.s6_addr, 16), v6.sin6_scope_id);
 				return hash<decltype(unpack)>()(unpack);
 			}
-			case C4NetIO::HostAddress::UnknownFamily:
+			default:
 				assert(!"Unexpected address family");
 				return 0;
 			}

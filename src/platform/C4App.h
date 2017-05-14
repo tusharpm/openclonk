@@ -69,7 +69,7 @@ public:
 	virtual void Quit();
 
 	bool GetIndexedDisplayMode(int32_t iIndex, int32_t *piXRes, int32_t *piYRes, int32_t *piBitDepth, int32_t *piRefreshRate, uint32_t iMonitor);
-	bool SetVideoMode(int iXRes, int iYRes, unsigned int iRefreshRate, unsigned int iMonitor, bool fFullScreen);
+	bool SetVideoMode(int iXRes, int iYRes, int iRefreshRate, unsigned int iMonitor, bool fFullScreen);
 	void RestoreVideoMode();
 
 	bool DoScheduleProcs(int iTimeout) override;

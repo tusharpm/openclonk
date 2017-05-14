@@ -628,7 +628,9 @@ namespace
 		std::vector<BoneTransform> bones;
 		if (mesh_instance.GetBoneCount() == 0)
 		{
-#pragma clang diagnostic ignored "-Wmissing-braces" 
+#ifdef __clang__
+#pragma clang diagnostic ignored "-Wmissing-braces"
+#endif
 			// Upload dummy bone so we don't have to do branching in the vertex shader
 			static const BoneTransform dummy_bone = {
 				1.0f, 0.0f, 0.0f, 0.0f,

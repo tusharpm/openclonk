@@ -1120,8 +1120,8 @@ void C4EditCursor::AppendMenuItem(int num, const StdStrBuf & label)
 
 bool C4EditCursor::DoContextMenu(DWORD dwKeyState)
 {
-	bool fObjectSelected = !!selection.GetObject();
 #ifdef USE_WIN32_WINDOWS
+	bool fObjectSelected = !!selection.GetObject();
 	POINT point; GetCursorPos(&point);
 	HMENU hContext = GetSubMenu(hMenu,0);
 	SetMenuItemEnable(hContext, IDM_VIEWPORT_DELETE, fObjectSelected && Console.Editing);
@@ -1360,6 +1360,9 @@ void C4EditCursor::ApplyToolPicker()
 		}
 		else
 			Console.ToolsDlg.SelectMaterial(C4TLS_MatSky);
+		break;
+	default:
+		assert(!"Unexpected landscape mode");
 		break;
 	}
 	Hold=false;

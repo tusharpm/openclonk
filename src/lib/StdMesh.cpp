@@ -64,6 +64,7 @@ namespace
 		}
 	};
 
+#ifndef USE_CONSOLE
 	float StdMeshFaceOrderGetVertexZ(const StdMeshVertex& vtx, const StdMeshMatrix& trans)
 	{
 		// TODO: Need to apply attach matrix in case of attached meshes
@@ -138,6 +139,7 @@ namespace
 
 		faces.swap(new_faces);
 	}
+#endif
 
 	// Serialize a ValueProvider with StdCompiler
 	struct ValueProviderAdapt

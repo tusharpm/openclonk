@@ -328,7 +328,7 @@ C4NetIO::HostAddress C4NetIO::HostAddress::AsIPv4() const
 	if (gen.sa_family == AF_INET6 && IN6_IS_ADDR_V4MAPPED(&v6.sin6_addr))
 	{
 		nrv.v4.sin_family = AF_INET;
-		memcpy((char*) &nrv.v4.sin_addr, (char*) &v6.sin6_addr.s6_addr[12], sizeof(v4.sin_addr));
+		memcpy(&nrv.v4.sin_addr, v6.sin6_addr.s6_addr + 12, sizeof(v4.sin_addr));
 	}
 	return nrv;
 }

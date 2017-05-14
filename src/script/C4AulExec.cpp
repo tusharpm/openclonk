@@ -1001,8 +1001,7 @@ void C4AulProfiler::Show()
 	// display them
 	Log("Profiler statistics:");
 	Log("==============================");
-	typedef std::vector<Entry> EntryList;
-	for (auto & e : Times)
+	for (const auto & e : Times)
 	{
 		LogF("%05ums\t%s", e.tProfileTime, e.pFunc ? (e.pFunc->GetFullName().getData()) : "Direct exec");
 	}

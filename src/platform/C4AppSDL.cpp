@@ -351,7 +351,7 @@ bool C4AbstractApp::GetIndexedDisplayMode(int32_t iIndex, int32_t *piXRes, int32
 	return true;
 }
 
-bool C4AbstractApp::SetVideoMode(int iXRes, int iYRes, unsigned int RefreshRate,  unsigned int iMonitor, bool fFullScreen)
+bool C4AbstractApp::SetVideoMode(int iXRes, int iYRes, int RefreshRate,  unsigned int iMonitor, bool fFullScreen)
 {
 	int res;
 	if (!fFullScreen)

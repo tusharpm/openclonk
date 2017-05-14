@@ -913,8 +913,6 @@ const C4Value C4ScriptGuiWindow::ToC4Value()
 		P_Tooltip
 	};
 
-	const int32_t entryCount = sizeof(toSave) / sizeof(int32_t);
-
 	for (int prop : toSave)
 	{
 		C4Value val;
@@ -1473,7 +1471,7 @@ void C4ScriptGuiWindow::UpdateLayoutTightGrid()
 		int32_t currentY = borderY;
 
 		bool hadOverlap = false;
-		int overlapRepeats = 0;
+		size_t overlapRepeats = 0;
 		do
 		{
 			auto overlapsWithOther = [&currentX, &currentY, &childWdt, &childHgt](C4ScriptGuiWindow *other)
@@ -1512,7 +1510,7 @@ void C4ScriptGuiWindow::UpdateLayoutTightGrid()
 					}
 				}
 			}
-			overlapRepeats += 1;
+			++overlapRepeats;
 		} while (hadOverlap);
 
 		alreadyPlacedChildren.push_back(child);
