@@ -67,8 +67,8 @@ struct C4Landscape::P
 	LandscapeMode mode = LandscapeMode::Undefined;
 	int32_t Width = 0, Height = 0;
 	int32_t MapWidth = 0, MapHeight = 0, MapZoom = 0;
-	std::array<DWORD, C4MaxMaterial> MatCount{}; // NoSave //
-	std::array<DWORD, C4MaxMaterial> EffectiveMatCount{}; // NoSave //
+	std::array<DWORD, C4MaxMaterial> MatCount; // NoSave //
+	std::array<DWORD, C4MaxMaterial> EffectiveMatCount; // NoSave //
 
 	bool NoScan = false; // ExecuteScan() disabled
 	int32_t ScanX = 0, ScanSpeed = 2; // SyncClearance-NoSave //
