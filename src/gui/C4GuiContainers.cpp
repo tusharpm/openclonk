@@ -48,7 +48,7 @@ namespace C4GUI
 			}
 	}
 
-	Container::Container() : Element()
+	Container::Container()
 	{
 		// zero fields
 		pFirst = pLast = nullptr;

@@ -269,7 +269,7 @@ void C4StartupOptionsDlg::ControlConfigListBox::ControlAssignmentLabel::UpdateAs
 // --- C4StartupOptionsDlg::ControlConfigListBox::ListItem
 
 C4StartupOptionsDlg::ControlConfigListBox::ListItem::ListItem(ControlConfigListBox *parent_list, class C4PlayerControlAssignment *assignment, class C4PlayerControlAssignmentSet *assignment_set, bool has_extra_spacing)
-	: C4GUI::Window(), parent_list(parent_list), assignment_label(nullptr), has_extra_spacing(has_extra_spacing)
+	: parent_list(parent_list), assignment_label(nullptr), has_extra_spacing(has_extra_spacing)
 {
 	int32_t margin = 2;
 	// adding to listbox will size the element horizontally and move to proper position
@@ -390,7 +390,7 @@ void C4StartupOptionsDlg::ControlConfigListBox::SetUserKey(class C4PlayerControl
 // --- C4StartupOptionsDlg::ControlConfigArea
 
 C4StartupOptionsDlg::ControlConfigArea::ControlConfigArea(const C4Rect &rcArea, int32_t iHMargin, int32_t iVMargin, bool fGamepad, C4StartupOptionsDlg *pOptionsDlg)
-		: C4GUI::Window(), fGamepad(fGamepad), pOptionsDlg(pOptionsDlg), pGUICtrl(nullptr)
+		: fGamepad(fGamepad), pOptionsDlg(pOptionsDlg), pGUICtrl(nullptr)
 {
 	CStdFont *pUseFontSmall = &(C4Startup::Get()->Graphics.BookSmallFont);
 	SetBounds(rcArea);
@@ -485,7 +485,7 @@ void C4StartupOptionsDlg::ControlConfigArea::OnGUIGamepadCheckChange(C4GUI::Elem
 // --- C4StartupOptionsDlg::NetworkPortConfig
 
 C4StartupOptionsDlg::NetworkPortConfig::NetworkPortConfig(const C4Rect &rcBounds, const char *szName, int32_t *pConfigValue, int32_t iDefault)
-		: C4GUI::Window(), pConfigValue(pConfigValue)
+		: pConfigValue(pConfigValue)
 {
 	// ctor
 	CStdFont *pUseFont = &(C4Startup::Get()->Graphics.BookFont);
@@ -549,7 +549,7 @@ bool C4StartupOptionsDlg::NetworkPortConfig::GetControlSize(int *piWdt, int *piH
 // --- C4StartupOptionsDlg::NetworkServerAddressConfig
 
 C4StartupOptionsDlg::NetworkServerAddressConfig::NetworkServerAddressConfig(const C4Rect &rcBounds, const char *szName, int32_t *piConfigEnableValue, char *szConfigAddressValue, int iTabWidth)
-		: C4GUI::Window(), piConfigEnableValue(piConfigEnableValue), szConfigAddressValue(szConfigAddressValue)
+		: piConfigEnableValue(piConfigEnableValue), szConfigAddressValue(szConfigAddressValue)
 {
 	// ctor
 	CStdFont *pUseFont = &(C4Startup::Get()->Graphics.BookFont);

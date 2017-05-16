@@ -86,7 +86,7 @@ private:
 		bool CanLocalChooseTeams(int32_t idPlayer=0) const; // whether the local client can change any teams
 
 	public:
-		ListItem(C4PlayerInfoListBox *pList) : C4GUI::Window(), pList(pList), dwBackground(0) {}
+		ListItem(C4PlayerInfoListBox *pList) : pList(pList), dwBackground(0) {}
 	};
 
 	// lobby information and display of joined players

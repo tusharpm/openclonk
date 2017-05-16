@@ -564,7 +564,7 @@ bool C4KeyEventData::operator ==(const struct C4KeyEventData &cmp) const
 /* ----------------- C4CustomKey------------------ */
 
 C4CustomKey::C4CustomKey(const C4KeyCodeEx &DefCode, const char *szName, C4KeyScope Scope, C4KeyboardCallbackInterface *pCallback, unsigned int uiPriority)
-		: Scope(Scope), Name(), uiPriority(uiPriority), iRef(0), is_down(false)
+		: Scope(Scope), uiPriority(uiPriority), iRef(0), is_down(false)
 {
 	// generate code
 	if (DefCode.Key != KEY_Default) DefaultCodes.push_back(DefCode);
@@ -579,7 +579,7 @@ C4CustomKey::C4CustomKey(const C4KeyCodeEx &DefCode, const char *szName, C4KeySc
 }
 
 C4CustomKey::C4CustomKey(CodeList rDefCodes, const char *szName, C4KeyScope Scope, C4KeyboardCallbackInterface *pCallback, unsigned int uiPriority)
-		: DefaultCodes(std::move(rDefCodes)), Scope(Scope), Name(), uiPriority(uiPriority), iRef(0), is_down(false)
+		: DefaultCodes(std::move(rDefCodes)), Scope(Scope), uiPriority(uiPriority), iRef(0), is_down(false)
 {
 	// ctor for default key
 	Name.Copy(szName);
@@ -592,7 +592,7 @@ C4CustomKey::C4CustomKey(CodeList rDefCodes, const char *szName, C4KeyScope Scop
 }
 
 C4CustomKey::C4CustomKey(const C4CustomKey &rCpy, bool fCopyCallbacks)
-		: Codes(rCpy.Codes), DefaultCodes(rCpy.DefaultCodes), Scope(rCpy.Scope), Name(), uiPriority(rCpy.uiPriority), iRef(0), is_down(false)
+		: Codes(rCpy.Codes), DefaultCodes(rCpy.DefaultCodes), Scope(rCpy.Scope), uiPriority(rCpy.uiPriority), iRef(0), is_down(false)
 {
 	Name.Copy(rCpy.GetName());
 	if (fCopyCallbacks)

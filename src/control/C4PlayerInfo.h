@@ -101,7 +101,7 @@ private:
 
 public:
 	C4PlayerInfo()                           // construct empty
-			: pRes(nullptr), szFilename(), idExtraData(C4ID::None), sLeagueAccount("") { }
+			: pRes(nullptr), idExtraData(C4ID::None), sLeagueAccount("") { }
 
 	void Clear();                            // clear fields
 
@@ -276,7 +276,7 @@ class C4PacketPlayerInfoUpdRequest : public C4PacketBase
 public:
 	C4ClientPlayerInfos Info; // info for clients to be joined
 
-	C4PacketPlayerInfoUpdRequest() : Info() { } // std ctor
+	C4PacketPlayerInfoUpdRequest() = default; // std ctor
 	C4PacketPlayerInfoUpdRequest(const char *szFilenames, bool fAdd) // ctor
 			: Info(szFilenames, fAdd) { };
 
@@ -293,7 +293,7 @@ public:
 	C4ClientPlayerInfos Info; // info for clients to be updated
 	bool fIsRecreationInfo{false};   // if set, this info packet describes savegame recreation players
 
-	C4PacketPlayerInfo() : Info() { } // std ctor
+	C4PacketPlayerInfo() = default; // std ctor
 	C4PacketPlayerInfo(const C4ClientPlayerInfos &rCopyInfos, bool fRecreationPlayers) // ctor
 			: Info(rCopyInfos), fIsRecreationInfo(fRecreationPlayers) { };
 

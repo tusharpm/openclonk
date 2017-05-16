@@ -211,7 +211,7 @@ private:
 	C4LeagueFBIDList FBIDList;
 
 public:
-	C4LeagueClient() : C4Network2RefClient(), CSID() { }
+	C4LeagueClient() = default;
 	const char *getCSID() const { return CSID.getData(); }
 	C4LeagueAction getCurrentAction() const { return eCurrAction; }
 	void ResetCurrentAction() { eCurrAction = C4LA_None; }

@@ -35,7 +35,7 @@
 // -----------------------------------------------------------
 // C4MainMenu
 
-C4MainMenu::C4MainMenu() : C4Menu() // will be re-adjusted later
+C4MainMenu::C4MainMenu() // will be re-adjusted later
 {
 	Clear();
 }

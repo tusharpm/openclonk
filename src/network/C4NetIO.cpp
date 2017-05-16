@@ -3894,11 +3894,7 @@ void C4NetIOUDP::DebugLogPkt(bool fOut, const C4NetIOPacket &Pkt)
 
 // *** C4NetIOMan
 
-C4NetIOMan::C4NetIOMan()
-		: StdSchedulerThread()
-
-{
-}
+C4NetIOMan::C4NetIOMan() = default;
 
 C4NetIOMan::~C4NetIOMan()
 {

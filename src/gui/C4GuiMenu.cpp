@@ -59,7 +59,7 @@ namespace C4GUI
 	}
 
 	ContextMenu::Entry::Entry(const char *szText, Icons icoIcon, MenuHandler *pMenuHandler, ContextHandler *pSubmenuHandler)
-			: Element(), cHotkey(0), icoIcon(icoIcon), pMenuHandler(pMenuHandler), pSubmenuHandler(pSubmenuHandler)
+			: cHotkey(0), icoIcon(icoIcon), pMenuHandler(pMenuHandler), pSubmenuHandler(pSubmenuHandler)
 	{
 		// set text with hotkey
 		if (szText)
@@ -83,7 +83,7 @@ namespace C4GUI
 // ----------------------------------------------------
 // ContextMenu
 
-	ContextMenu::ContextMenu() : Window()
+	ContextMenu::ContextMenu()
 	{
 		iMenuIndex = ++iGlobalMenuIndex;
 		// set min size

@@ -36,7 +36,7 @@ namespace C4GUI
 	}
 
 	Label::Label(const char *szLblText, int32_t iX0, int32_t iTop, int32_t iAlign, DWORD dwFClr, CStdFont *pFont, bool fMakeReadableOnBlack, bool fMarkup)
-			: Element(), dwFgClr(dwFClr), x0(iX0), iAlign(iAlign), pFont(pFont), cHotkey(0), fAutosize(true), fMarkup(fMarkup), pClickFocusControl(nullptr)
+			: dwFgClr(dwFClr), x0(iX0), iAlign(iAlign), pFont(pFont), cHotkey(0), fAutosize(true), fMarkup(fMarkup), pClickFocusControl(nullptr)
 	{
 		// make color readable
 		if (fMakeReadableOnBlack) MakeColorReadableOnBlack(dwFgClr);
@@ -49,7 +49,7 @@ namespace C4GUI
 	}
 
 	Label::Label(const char *szLblText, const C4Rect &rcBounds, int32_t iAlign, DWORD dwFClr, CStdFont *pFont, bool fMakeReadableOnBlack, bool fAutosize, bool fMarkup)
-			: Element(), dwFgClr(dwFClr), iAlign(iAlign), pFont(pFont), cHotkey(0), fAutosize(fAutosize), fMarkup(fMarkup), pClickFocusControl(nullptr)
+			: dwFgClr(dwFClr), iAlign(iAlign), pFont(pFont), cHotkey(0), fAutosize(fAutosize), fMarkup(fMarkup), pClickFocusControl(nullptr)
 	{
 		// make color readable
 		if (fMakeReadableOnBlack) MakeColorReadableOnBlack(dwFgClr);
@@ -200,7 +200,7 @@ namespace C4GUI
 // MultilineLabel
 
 	MultilineLabel::MultilineLabel(const C4Rect &rcBounds, int32_t iMaxLines, int32_t iMaxBuf, const char *szIndentChars, bool fAutoGrow, bool fMarkup) // ctor
-			: Element(), Lines(iMaxBuf, iMaxLines, rcBounds.Wdt, szIndentChars, fAutoGrow, fMarkup), fMarkup(fMarkup)
+			: Lines(iMaxBuf, iMaxLines, rcBounds.Wdt, szIndentChars, fAutoGrow, fMarkup), fMarkup(fMarkup)
 	{
 		// set bounds
 		this->rcBounds = rcBounds;

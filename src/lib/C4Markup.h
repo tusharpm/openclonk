@@ -35,7 +35,7 @@ public:
 class C4MarkupTagItalic : public C4MarkupTag
 {
 public:
-	C4MarkupTagItalic() : C4MarkupTag() { } // ctor
+	C4MarkupTagItalic() = default; // ctor
 
 	void Apply(C4BltTransform &rBltTrf, bool fDoClr, DWORD &dwClr) override; // assign markup
 	const char *TagName() override { return "i"; }
@@ -47,7 +47,7 @@ class C4MarkupTagColor : public C4MarkupTag
 private:
 	DWORD dwClr;    // color
 public:
-	C4MarkupTagColor(DWORD dwClr) : C4MarkupTag(), dwClr(dwClr) { } // ctor
+	C4MarkupTagColor(DWORD dwClr) : dwClr(dwClr) { } // ctor
 
 	void Apply(C4BltTransform &rBltTrf, bool fDoClr, DWORD &dwClr) override; // assign markup
 	const char *TagName() override { return "c"; }

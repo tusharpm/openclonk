@@ -58,7 +58,7 @@ private:
 	} eLeagueStatus{RRPLS_Unknown}; // whether player lost or won
 
 public:
-	C4RoundResultsPlayer() : sLeagueProgressData() {}
+	C4RoundResultsPlayer() = default;
 	C4RoundResultsPlayer(const C4RoundResultsPlayer &cpy) { *this=cpy; }
 
 	void CompileFunc(StdCompiler *pComp);

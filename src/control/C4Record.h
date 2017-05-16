@@ -230,7 +230,7 @@ class C4PktDebugRec : public C4PktBuf
 protected:
 	C4RecordChunkType eType{RCT_Undefined};
 public:
-	C4PktDebugRec() : C4PktBuf() {}
+	C4PktDebugRec() = default;
 	C4PktDebugRec(const C4PktDebugRec &rCopy) = default;
 	C4PktDebugRec(C4RecordChunkType eType, const StdBuf &rCpyData)
 			: C4PktBuf(rCpyData), eType(eType) {}

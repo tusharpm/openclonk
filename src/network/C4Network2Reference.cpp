@@ -25,7 +25,7 @@
 // *** C4Network2Reference
 
 C4Network2Reference::C4Network2Reference()
-		:  GameMode(), NetpuncherGameID(C4NetpuncherID())
+		: NetpuncherGameID(C4NetpuncherID())
 {
 
 }

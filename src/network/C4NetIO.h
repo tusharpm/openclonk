@@ -136,7 +136,7 @@ public:
 		static const uint16_t IPPORT_NONE = 0;
 
 		EndpointAddress() { Clear(); }
-		EndpointAddress(const EndpointAddress &other) : HostAddress() { SetAddress(other); }
+		EndpointAddress(const EndpointAddress &other) { SetAddress(other); }
 		EndpointAddress(const HostAddress &host, uint16_t port = IPPORT_NONE) : HostAddress(host) { SetPort(port); }
 		EndpointAddress(HostAddress::SpecialAddress addr, uint16_t port = IPPORT_NONE) : HostAddress(addr) { SetPort(port); }
 		explicit EndpointAddress(const StdStrBuf &addr) { SetAddress(addr); }

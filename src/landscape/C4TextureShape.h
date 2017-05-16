@@ -32,7 +32,7 @@ private:
 	std::vector<bool> shape_border_x, shape_border_y; // whether shapes are touching horizontal/vertical borders
 	std::vector<int32_t> shape_pixnum; // number of pixels
 public:
-	C4TextureShape() : data() {}
+	C4TextureShape() = default;
 	~C4TextureShape() = default;
 
 	void Clear();

@@ -205,7 +205,7 @@ class C4Network2UpdateClient : public C4Network2HTTPClient
 protected:
 	int32_t GetDefaultPort() override { return C4NetStdPortHTTP; }
 public:
-	C4Network2UpdateClient() : C4Network2HTTPClient() {}
+	C4Network2UpdateClient() = default;
 
 	bool QueryUpdateURL();
 	bool GetUpdateURL(StdStrBuf *pUpdateURL);
@@ -218,7 +218,7 @@ class C4Network2RefClient : public C4Network2HTTPClient
 protected:
 	int32_t GetDefaultPort() override { return C4NetStdPortRefServer; }
 public:
-	C4Network2RefClient() : C4Network2HTTPClient() {}
+	C4Network2RefClient() = default;
 
 	bool QueryReferences();
 	bool GetReferences(C4Network2Reference **&rpReferences, int32_t &rRefCount);

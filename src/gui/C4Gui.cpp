@@ -567,7 +567,7 @@ namespace C4GUI
 		}
 	}
 
-	Screen::Screen() : Window(), Mouse(0, 0)
+	Screen::Screen() : Mouse(0, 0)
 	{
 		// no dialog active
 		pActiveDlg = nullptr;

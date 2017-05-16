@@ -442,7 +442,7 @@ class C4SortObjectReverse : public C4SortObject // reverse sort
 {
 public:
 	C4SortObjectReverse(C4SortObject *pSort)
-			: C4SortObject(), pSort(pSort) {}
+			: pSort(pSort) {}
 	~C4SortObjectReverse() override;
 private:
 	C4SortObject *pSort;
@@ -458,7 +458,7 @@ class C4SortObjectMultiple : public C4SortObject // apply next sort if previous 
 {
 public:
 	C4SortObjectMultiple(int32_t iCnt, C4SortObject **ppSorts, bool fFreeArray = true)
-			: C4SortObject(), fFreeArray(fFreeArray), iCnt(iCnt), ppSorts(ppSorts) {}
+			: fFreeArray(fFreeArray), iCnt(iCnt), ppSorts(ppSorts) {}
 	~C4SortObjectMultiple() override;
 private:
 	bool fFreeArray;
@@ -476,7 +476,7 @@ class C4SortObjectDistance : public C4SortObjectByValue // sort by distance from
 {
 public:
 	C4SortObjectDistance(int iX, int iY)
-			: C4SortObjectByValue(), iX(iX), iY(iY) {}
+			: iX(iX), iY(iY) {}
 private:
 	int iX, iY;
 
@@ -487,7 +487,7 @@ protected:
 class C4SortObjectRandom : public C4SortObjectByValue // randomize order
 {
 public:
-	C4SortObjectRandom() : C4SortObjectByValue() {}
+	C4SortObjectRandom() = default;
 
 protected:
 	int32_t CompareGetValue(C4Object *pFor) override;
@@ -496,7 +496,7 @@ protected:
 class C4SortObjectSpeed : public C4SortObjectByValue // sort by object xdir/ydir
 {
 public:
-	C4SortObjectSpeed() : C4SortObjectByValue() {}
+	C4SortObjectSpeed() = default;
 
 protected:
 	int32_t CompareGetValue(C4Object *pFor) override;
@@ -505,7 +505,7 @@ protected:
 class C4SortObjectMass : public C4SortObjectByValue // sort by mass
 {
 public:
-	C4SortObjectMass() : C4SortObjectByValue() {}
+	C4SortObjectMass() = default;
 
 protected:
 	int32_t CompareGetValue(C4Object *pFor) override;
@@ -514,7 +514,7 @@ protected:
 class C4SortObjectValue : public C4SortObjectByValue // sort by value
 {
 public:
-	C4SortObjectValue() : C4SortObjectByValue() {}
+	C4SortObjectValue() = default;
 
 protected:
 	int32_t CompareGetValue(C4Object *pFor) override;

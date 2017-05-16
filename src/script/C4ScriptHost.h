@@ -138,7 +138,7 @@ public:
 class C4DefScriptHost: public C4ScriptHost
 {
 public:
-	C4DefScriptHost() : C4ScriptHost() { }
+	C4DefScriptHost() = default;
 
 	void SetDef(C4Def *to_def) { Def=to_def; }
 	bool Parse() override;

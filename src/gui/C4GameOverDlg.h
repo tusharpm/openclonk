@@ -42,7 +42,7 @@ private:
 	};
 
 public:
-	C4GoalDisplay(const C4Rect &rcBounds) : C4GUI::Window() { SetBounds(rcBounds); }
+	C4GoalDisplay(const C4Rect &rcBounds) { SetBounds(rcBounds); }
 	~C4GoalDisplay() override = default;
 
 	void SetGoals(const C4IDList &rAllGoals, const C4IDList &rFulfilledGoals, int32_t iGoalSymbolHeight);

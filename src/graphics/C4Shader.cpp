@@ -42,11 +42,7 @@ C4ShaderPosName C4SH_PosNames[] = {
 	{ C4Shader_Vertex_PositionPos,          "position" }
 };
 
-C4Shader::C4Shader()
-	: LastRefresh()
-{
-
-}
+C4Shader::C4Shader() = default;
 
 C4Shader::~C4Shader()
 {

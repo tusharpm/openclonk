@@ -334,7 +334,7 @@ C4ChatControl::ChatSheet::NickItem *C4ChatControl::ChatSheet::GetNickItem(const 
 
 /* C4ChatControl */
 
-C4ChatControl::C4ChatControl(C4Network2IRCClient *pnIRCClient) : C4GUI::Window(), pTitleChangeBC(nullptr), pIRCClient(pnIRCClient), fInitialMessagesReceived(false)
+C4ChatControl::C4ChatControl(C4Network2IRCClient *pnIRCClient) : pTitleChangeBC(nullptr), pIRCClient(pnIRCClient), fInitialMessagesReceived(false)
 {
 	// create elements - positioned later
 	C4Rect rcDefault(0,0,10,10);

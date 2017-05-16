@@ -572,7 +572,7 @@ namespace C4GUI
 
 	public:
 		ProgressBar(C4Rect &rrcBounds, int32_t iMaxProgress=100) // progress bar ctor
-				: Element(), iProgress(0), iMax(iMaxProgress)
+				: iProgress(0), iMax(iMaxProgress)
 		{ rcBounds=rrcBounds; UpdatePos(); }
 
 		void SetProgress(int32_t iToProgress) { iProgress = iToProgress; }
@@ -587,7 +587,7 @@ namespace C4GUI
 		void DrawElement(C4TargetFacet &cgo) override; // draw horizontal line
 	public:
 		HorizontalLine(C4Rect &rrcBounds, uint32_t dwClr=0x000000, uint32_t dwShadowClr=0xaf7f7f7f)
-				: Element(), dwClr(dwClr), dwShadowClr(dwShadowClr)
+				:  dwClr(dwClr), dwShadowClr(dwShadowClr)
 		{ SetBounds(rrcBounds); }
 	};
 
@@ -1007,7 +1007,7 @@ namespace C4GUI
 		CStdFont *GetTitleFont() const;
 
 	public:
-		GroupBox(C4Rect &rtBounds) : Window(), pFont(nullptr), dwFrameClr(0u), dwTitleClr(C4GUI_CaptionFontClr), dwBackClr(0xffffffff), iMargin(4)
+		GroupBox(C4Rect &rtBounds) : pFont(nullptr), dwFrameClr(0u), dwTitleClr(C4GUI_CaptionFontClr), dwBackClr(0xffffffff), iMargin(4)
 		{
 			// init client rect
 			SetBounds(rtBounds);
@@ -1970,7 +1970,7 @@ namespace C4GUI
 			StdCopyStrBuf sText;
 			int32_t id{0};
 
-			ComboMenuCBStruct() : sText() {}
+			ComboMenuCBStruct() = default;
 			ComboMenuCBStruct(const char *szText, int32_t id) : sText(szText), id(id) {}
 		};
 	private:
@@ -2030,7 +2030,7 @@ namespace C4GUI
 	{
 	public:
 		Dialog* pDialog{nullptr};
-		DialogWindow(): C4Window() {}
+		DialogWindow() = default;
 		using C4Window::Init;
 		C4Window * Init(C4AbstractApp * pApp, const char * Title, const C4Rect &rcBounds, const char *szID);
 		void Close() override;

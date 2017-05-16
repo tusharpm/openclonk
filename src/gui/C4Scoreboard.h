@@ -29,7 +29,7 @@ private:
 		StdStrBuf Text;
 		int32_t iVal{0};
 
-		Entry() : Text() { }
+		Entry() = default;
 		void GrabFrom(Entry *pFrom) // grab data w/o copy
 		{ Text.Take(std::move(pFrom->Text)); iVal = pFrom->iVal; }
 		void SwapWith(Entry *pSwap);

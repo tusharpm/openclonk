@@ -271,7 +271,7 @@ namespace C4GUI
 	}
 
 	Dialog::Dialog(int32_t iWdt, int32_t iHgt, const char *szTitle, bool fViewportDlg):
-			Window(), pTitle(nullptr), pCloseBtn(nullptr), fDelOnClose(false), fViewportDlg(fViewportDlg), pWindow(nullptr), pFrameDeco(nullptr)
+			pTitle(nullptr), pCloseBtn(nullptr), fDelOnClose(false), fViewportDlg(fViewportDlg), pWindow(nullptr), pFrameDeco(nullptr)
 	{
 		// zero fields
 		pActiveCtrl = nullptr;
@@ -843,7 +843,7 @@ namespace C4GUI
 // MessageDialog
 
 	MessageDialog::MessageDialog(const char *szMessage, const char *szCaption, DWORD dwButtons, Icons icoIcon, DlgSize eSize, int32_t *piConfigDontShowAgainSetting, bool fDefaultNo)
-			: Dialog(eSize, 100 /* will be resized */, szCaption, false), piConfigDontShowAgainSetting(piConfigDontShowAgainSetting), pKeyCopy(nullptr), sCopyText()
+			: Dialog(eSize, 100 /* will be resized */, szCaption, false), piConfigDontShowAgainSetting(piConfigDontShowAgainSetting), pKeyCopy(nullptr)
 	{
 		CStdFont &rUseFont = ::GraphicsResource.TextFont;
 		// get positions

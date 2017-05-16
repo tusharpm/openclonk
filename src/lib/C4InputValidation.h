@@ -69,7 +69,7 @@ template <class T> inline C4StrValAdapt<T> mkStrValAdapt(T &&rValue, C4InVal::Va
 struct ValidatedStdCopyStrBufBase : public StdCopyStrBuf
 {
 	ValidatedStdCopyStrBufBase(const char *szCopy) : StdCopyStrBuf(szCopy) {}
-	ValidatedStdCopyStrBufBase() : StdCopyStrBuf() {}
+	ValidatedStdCopyStrBufBase() = default;
 
 	inline void CompileFunc(StdCompiler *pComp, int iRawType = 0)
 	{

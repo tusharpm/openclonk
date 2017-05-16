@@ -34,7 +34,7 @@
 // -----------------------------------------------------------
 // C4ObjectMenu
 
-C4ObjectMenu::C4ObjectMenu() : C4Menu()
+C4ObjectMenu::C4ObjectMenu()
 {
 	Default();
 }

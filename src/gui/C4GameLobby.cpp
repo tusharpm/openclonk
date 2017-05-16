@@ -61,7 +61,7 @@ namespace C4GameLobby
 
 // ----------- ScenDescs ---------------------------------------------
 
-	ScenDesc::ScenDesc(const C4Rect &rcBounds, bool fActive) : C4GUI::Window(), fDescFinished(false)
+	ScenDesc::ScenDesc(const C4Rect &rcBounds, bool fActive) : fDescFinished(false)
 	{
 		// build components
 		SetBounds(rcBounds);

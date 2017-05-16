@@ -32,7 +32,7 @@ namespace C4GUI
 // Tabular::Sheet
 
 	Tabular::Sheet::Sheet(const char *szTitle, const C4Rect &rcBounds, int32_t icoTitle, bool fHasCloseButton, bool fTitleMarkup)
-			: Window(), icoTitle(icoTitle), cHotkey(0), dwCaptionClr(0u), fHasCloseButton(fHasCloseButton), fCloseButtonHighlighted(false), fTitleMarkup(fTitleMarkup)
+			: icoTitle(icoTitle), cHotkey(0), dwCaptionClr(0u), fHasCloseButton(fHasCloseButton), fCloseButtonHighlighted(false), fTitleMarkup(fTitleMarkup)
 	{
 		// store title
 		if (szTitle)

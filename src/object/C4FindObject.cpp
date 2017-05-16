@@ -917,10 +917,7 @@ void C4SortObject::SortObjects(C4ValueArray *pArray)
 
 // *** C4SortObjectByValue
 
-C4SortObjectByValue::C4SortObjectByValue()
-		: C4SortObject()
-{
-}
+C4SortObjectByValue::C4SortObjectByValue() = default;
 
 C4SortObjectByValue::~C4SortObjectByValue()
 {

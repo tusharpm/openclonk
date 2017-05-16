@@ -782,7 +782,6 @@ namespace C4GUI
 // LabeledEdit
 
 	LabeledEdit::LabeledEdit(const C4Rect &rcBounds, const char *szName, bool fMultiline, const char *szPrefText, CStdFont *pUseFont, uint32_t dwTextClr)
-			: C4GUI::Window()
 	{
 		if (!pUseFont) pUseFont = &(::GraphicsResource.TextFont);
 		SetBounds(rcBounds);

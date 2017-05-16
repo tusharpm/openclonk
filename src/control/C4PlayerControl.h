@@ -187,9 +187,7 @@ private:
 	const C4PlayerControlAssignment *inherited_assignment{nullptr}; // valid for assignments that were copied from a parent: source assignment
 
 public:
-	C4PlayerControlAssignment() :
-		TriggerKey()
-	{}
+	C4PlayerControlAssignment() = default;
 	~C4PlayerControlAssignment() = default;
 
 	void CompileFunc(StdCompiler *pComp);
@@ -360,7 +358,7 @@ public:
 					: DownState(rDownState), iDownFrame(iDownFrame), fDownByUser(fDownByUser) {}
 			bool IsDown() const { return DownState.iStrength>0; }
 
-			ControlDownState() : DownState() {}
+			ControlDownState()  = default;
 			void CompileFunc(StdCompiler *pComp);
 			bool operator ==(const ControlDownState &cmp) const;
 		};

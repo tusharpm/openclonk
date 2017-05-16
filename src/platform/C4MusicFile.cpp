@@ -172,8 +172,7 @@ void C4MusicFileSDL::SetVolume(int iLevel)
 
 /* Ogg Vobis */
 
-C4MusicFileOgg::C4MusicFileOgg() :
-	last_interruption_time()
+C4MusicFileOgg::C4MusicFileOgg()
 {
 	for (unsigned int & buffer : buffers)
 		buffer = 0;

@@ -200,7 +200,7 @@ protected:
 	void Set(Mode aMode, C4DefGraphics *pGfx, const char *szAction, DWORD dwBMode, C4Object *pOvrlObj);
 
 public:
-	C4GraphicsOverlay() : fctBlit(),
+	C4GraphicsOverlay() :
 			OverlayObj(nullptr), Transform(+1) { *Action=0; } // std ctor
 	~C4GraphicsOverlay(); // dtor
 

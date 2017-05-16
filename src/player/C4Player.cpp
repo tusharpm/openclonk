@@ -44,7 +44,7 @@
 #include "platform/C4GamePadCon.h"
 #include "player/C4PlayerList.h"
 
-C4Player::C4Player() : C4PlayerInfoCore()
+C4Player::C4Player()
 {
 	Filename[0] = 0;
 	Number = C4P_Number_None;

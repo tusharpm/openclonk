@@ -580,7 +580,7 @@ C4Network2StartWaitDlg::C4Network2StartWaitDlg()
 // C4GameOptionButtons
 
 C4GameOptionButtons::C4GameOptionButtons(const C4Rect &rcBounds, bool fNetwork, bool fHost, bool fLobby)
-		: C4GUI::Window(), fNetwork(fNetwork), fHost(fHost), fLobby(fLobby), fCountdown(false)
+		: fNetwork(fNetwork), fHost(fHost), fLobby(fLobby), fCountdown(false)
 {
 	SetBounds(rcBounds);
 	// calculate button size from area
@@ -899,7 +899,7 @@ void C4Chart::DrawElement(C4TargetFacet &cgo)
 	}
 }
 
-C4Chart::C4Chart(C4Rect &rcBounds) : Element(), pDisplayGraph(nullptr), fOwnGraph(false)
+C4Chart::C4Chart(C4Rect &rcBounds) : pDisplayGraph(nullptr), fOwnGraph(false)
 {
 	this->rcBounds = rcBounds;
 }

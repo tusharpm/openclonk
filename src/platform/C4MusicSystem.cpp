@@ -27,9 +27,7 @@
 #include "platform/C4Window.h"
 
 C4MusicSystem::C4MusicSystem():
-		playlist(),
-		music_break_min(DefaultMusicBreak), music_break_max(DefaultMusicBreak),
-		wait_time_end()
+		music_break_min(DefaultMusicBreak), music_break_max(DefaultMusicBreak)
 {
 }
 
