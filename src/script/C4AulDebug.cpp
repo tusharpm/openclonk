@@ -28,10 +28,7 @@
 
 // *** C4AulDebug
 
-C4AulDebug::C4AulDebug()
-		: fInit(false), fConnected(false)
-{
-}
+C4AulDebug::C4AulDebug() = default;
 
 C4AulDebug::~C4AulDebug()
 {

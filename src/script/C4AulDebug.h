@@ -31,7 +31,7 @@ public:
 	static inline C4AulDebug *GetDebugger() { return pDebug; }
 
 private:
-	bool fInit, fConnected;
+	bool fInit{false}, fConnected{false};
 	C4AulExec *pExec;
 	static C4AulDebug *pDebug;
 	C4NetIO::addr_t PeerAddr, AllowedAddr;
@@ -86,7 +86,7 @@ private:
 	{
 		bool okay;
 		std::string answer;
-		ProcessLineResult(bool okay, const std::string answer)
+		ProcessLineResult(bool okay, const std::string &answer)
 			: okay(okay), answer(answer) {}
 	};
 
