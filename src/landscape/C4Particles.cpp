@@ -69,7 +69,7 @@ C4ParticleDef::C4ParticleDef() : C4ParticleDefCore()
 		previous->next = this;
 	}
 	Particles.definitions.last = this;
-	next = 0;
+	next = nullptr;
 }
 
 C4ParticleDef::~C4ParticleDef()
@@ -243,9 +243,9 @@ C4ParticleValueProvider & C4ParticleValueProvider::operator= (const C4ParticleVa
 	}
 	
 	// copy the other's children, too
-	for (std::vector<C4ParticleValueProvider*>::const_iterator iter = other.childrenValueProviders.begin(); iter != other.childrenValueProviders.end(); ++iter)
+	for (auto childValueProvider : other.childrenValueProviders)
 	{
-		childrenValueProviders.push_back(new C4ParticleValueProvider(**iter)); // custom copy constructor usage
+		childrenValueProviders.push_back(new C4ParticleValueProvider(*childValueProvider)); // custom copy constructor usage
 	}
 	return (*this);
 }
@@ -316,23 +316,22 @@ void C4ParticleValueProvider::UpdatePointerValue(C4Particle *particle, C4Particl
 
 void C4ParticleValueProvider::UpdateChildren(C4Particle *particle)
 {
-	for (std::vector<C4ParticleValueProvider*>::iterator iter = childrenValueProviders.begin(); iter != childrenValueProviders.end(); ++iter)
+	for (auto & childValueProvider : childrenValueProviders)
 	{
-		(*iter)->UpdatePointerValue(particle, this);
+		childValueProvider->UpdatePointerValue(particle, this);
 	}
 }
 
 void C4ParticleValueProvider::FloatifyParameterValue(float C4ParticleValueProvider::*value, float denominator, size_t keyFrameIndex)
 {
-	if (value == 0)
+	if (value == nullptr)
 		this->keyFrames[keyFrameIndex] /= denominator;
 	else
 		this->*value /= denominator;
 
-	for (std::vector<C4ParticleValueProvider*>::iterator iter = childrenValueProviders.begin(); iter != childrenValueProviders.end(); ++iter)
+	for (auto child : childrenValueProviders)
 	{
-		C4ParticleValueProvider *child = *iter;
-		if (value == 0)
+		if (value == nullptr)
 		{
 			if (child->typeOfValueToChange == VAL_TYPE_KEYFRAMES && child->keyFrameIndex == keyFrameIndex)
 				child->Floatify(denominator);
@@ -365,8 +364,8 @@ void C4ParticleValueProvider::Floatify(float denominator)
 	{
 		for (size_t i = 0; i < keyFrameCount; ++i)
 		{
-			FloatifyParameterValue(0, 1000.f, 2 * i); // even numbers are the time values
-			FloatifyParameterValue(0, denominator, 2 * i + 1); // odd numbers are the actual values
+			FloatifyParameterValue(nullptr, 1000.f, 2 * i); // even numbers are the time values
+			FloatifyParameterValue(nullptr, denominator, 2 * i + 1); // odd numbers are the actual values
 		}
 	}
 	else if (valueFunction == &C4ParticleValueProvider::Speed || valueFunction == &C4ParticleValueProvider::Wind || valueFunction == &C4ParticleValueProvider::Gravity)
@@ -582,12 +581,12 @@ void C4ParticleValueProvider::Set(const C4ValueArray &fromArray)
 			SetParameterValue(VAL_TYPE_FLOAT, fromArray[1], &C4ParticleValueProvider::startValue);
 			SetParameterValue(VAL_TYPE_FLOAT, fromArray[2], &C4ParticleValueProvider::endValue);
 			if (arraySize >= 4 && fromArray[3].GetType() != C4V_Type::C4V_Nil)
-				SetParameterValue(VAL_TYPE_INT, fromArray[3], 0, &C4ParticleValueProvider::rerollInterval);
+				SetParameterValue(VAL_TYPE_INT, fromArray[3], nullptr, &C4ParticleValueProvider::rerollInterval);
 			if (arraySize >= 5 && fromArray[4].GetType() != C4V_Type::C4V_Nil)
 			{
 				// We don't need the seed later on, but SetParameterValue won't accept local
 				// variables. Use an unrelated member instead which is reset below.
-				SetParameterValue(VAL_TYPE_INT, fromArray[4], 0, &C4ParticleValueProvider::alreadyRolled);
+				SetParameterValue(VAL_TYPE_INT, fromArray[4], nullptr, &C4ParticleValueProvider::alreadyRolled);
 				rng.seed(alreadyRolled);
 			}
 			else
@@ -619,7 +618,7 @@ void C4ParticleValueProvider::Set(const C4ValueArray &fromArray)
 		if (arraySize >= 5)
 		{
 			SetType(C4PV_KeyFrames);
-			SetParameterValue(VAL_TYPE_INT, fromArray[1], 0,  &C4ParticleValueProvider::smoothing);
+			SetParameterValue(VAL_TYPE_INT, fromArray[1], nullptr, &C4ParticleValueProvider::smoothing);
 			keyFrames.resize(arraySize + 4 - 1); // 2*2 additional information floats at the beginning and ending, offset the first array item, though
 
 			keyFrameCount = 0;
@@ -627,7 +626,7 @@ void C4ParticleValueProvider::Set(const C4ValueArray &fromArray)
 			size_t i = startingOffset;
 			for (; i < arraySize; ++i)
 			{
-				SetParameterValue(VAL_TYPE_KEYFRAMES, fromArray[(int32_t)i], 0, 0, 2 + i - startingOffset);
+				SetParameterValue(VAL_TYPE_KEYFRAMES, fromArray[(int32_t)i], nullptr, nullptr, 2 + i - startingOffset);
 			}
 			keyFrameCount = (i - startingOffset) / 2 + 2;
 
@@ -686,7 +685,7 @@ void C4ParticleValueProvider::Set(const C4Value &value)
 {
 	C4ValueArray *valueArray= value.getArray();
 
-	if (valueArray != 0)
+	if (valueArray != nullptr)
 		Set(*valueArray);
 	else
 		Set((float)value.getInt());
@@ -704,7 +703,7 @@ C4ParticleProperties::C4ParticleProperties()
 	attachment = C4ATTACH_None;
 	hasConstantColor = false;
 	hasCollisionVertex = false;
-	collisionCallback = 0;
+	collisionCallback = nullptr;
 	bouncyness = 0.f;
 
 	// all values in pre-floatified range (f.e. 0..255 instead of 0..1)
@@ -926,7 +925,7 @@ bool C4Particle::Exec(C4Object *obj, float timeDelta, C4ParticleDef *sourceDef)
 			if (density + 0.5f >= properties.collisionDensity.GetValue(this)) // Small offset against floating point insanities.
 			{
 				// exec collision func
-				if (properties.collisionCallback != 0 && !(properties.*properties.collisionCallback)(this)) return false;
+				if (properties.collisionCallback != nullptr && !(properties.*properties.collisionCallback)(this)) return false;
 				collided = true;
 			}
 		}
@@ -1008,7 +1007,7 @@ void C4ParticleChunk::Draw(C4TargetFacet cgo, C4Object *obj, C4ShaderCall& call,
 
 	// use a relative offset?
 	// (note the normal matrix is unaffected by this)
-	if ((attachment & C4ATTACH_MoveRelative) && (obj != 0))
+	if ((attachment & C4ATTACH_MoveRelative) && (obj != nullptr))
 	{
 		StdProjectionMatrix new_modelview(modelview);
 		Translate(new_modelview, fixtof(obj->GetFixedX()), fixtof(obj->GetFixedY()), 0.0f);
@@ -1074,7 +1073,7 @@ void C4ParticleChunk::Draw(C4TargetFacet cgo, C4Object *obj, C4ShaderCall& call,
 	// We need to always bind the ibo, because it might change its size.
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ::Particles.GetIBO(particleCount));
 
-	glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei> (5 * particleCount), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLE_STRIP, static_cast<GLsizei> (5 * particleCount), GL_UNSIGNED_INT, nullptr);
 
 	// reset buffer data
 	glBindVertexArray(0);
@@ -1139,9 +1138,8 @@ void C4ParticleList::Exec(float timeDelta)
 
 	accessMutex.Enter();
 
-	for (std::list<C4ParticleChunk*>::iterator iter = particleChunks.begin(); iter != particleChunks.end();++iter)
+	for (auto chunk : particleChunks)
 	{
-		C4ParticleChunk *chunk = *iter;
 		chunk->Exec(targetObject, timeDelta);
 	}
 
@@ -1179,7 +1177,7 @@ void C4ParticleList::Draw(C4TargetFacet cgo, C4Object *obj)
 		{
 			delete *iter;
 			iter = particleChunks.erase(iter);
-			lastAccessedChunk = 0;
+			lastAccessedChunk = nullptr;
 		}
 		else
 		{
@@ -1197,8 +1195,8 @@ void C4ParticleList::Clear()
 {
 	accessMutex.Enter();
 
-	for (std::list<C4ParticleChunk*>::iterator iter = particleChunks.begin(); iter != particleChunks.end(); ++iter)
-		delete *iter;
+	for (auto & particleChunk : particleChunks)
+		delete particleChunk;
 	particleChunks.clear();
 
 	if (targetObject)
@@ -1218,14 +1216,13 @@ C4ParticleChunk *C4ParticleList::GetFittingParticleChunk(C4ParticleDef *def, uin
 		accessMutex.Enter();
 
 	// if not cached, find correct chunk in list
-	C4ParticleChunk *chunk = 0;
+	C4ParticleChunk *chunk = nullptr;
 	if (lastAccessedChunk && lastAccessedChunk->IsOfType(def, blitMode, attachment))
 		chunk = lastAccessedChunk;
 	else
 	{
-		for (std::list<C4ParticleChunk*>::iterator iter = particleChunks.begin(); iter != particleChunks.end(); ++iter)
+		for (auto current : particleChunks)
 		{
-			C4ParticleChunk *current = *iter;
 			if (!current->IsOfType(def, blitMode, attachment)) continue;
 			chunk = current;
 			break;
@@ -1259,7 +1256,7 @@ void C4ParticleSystem::CalculationThread::Execute()
 C4ParticleSystem::C4ParticleSystem() : frameCounterAdvancedEvent(false)
 {
 	currentSimulationTime = 0;
-	globalParticles = 0;
+	globalParticles = nullptr;
 	ibo = 0;
 	ibo_size = 0;
 }
@@ -1287,9 +1284,9 @@ void C4ParticleSystem::ExecuteCalculation()
 
 		particleListAccessMutex.Enter();
 
-		for (std::list<C4ParticleList>::iterator iter = particleLists.begin(); iter != particleLists.end(); ++iter)
+		for (auto & particleList : particleLists)
 		{
-			iter->Exec(timeDelta);
+			particleList.Exec(timeDelta);
 		}
 
 		particleListAccessMutex.Leave();
@@ -1300,9 +1297,9 @@ void C4ParticleSystem::ExecuteCalculation()
 C4ParticleList *C4ParticleSystem::GetNewParticleList(C4Object *forObject)
 {
 #ifdef USE_CONSOLE
-	return 0;
+	return nullptr;
 #else
-	C4ParticleList *newList = 0;
+	C4ParticleList *newList = nullptr;
 
 	particleListAccessMutex.Enter();
 	particleLists.emplace_back(forObject);
@@ -1340,7 +1337,7 @@ void C4ParticleSystem::Create(C4ParticleDef *of_def, C4ParticleValueProvider &x,
 {
 	// todo: check amount etc
 
-	C4ParticleList * pxList(0);
+	C4ParticleList * pxList(nullptr);
 
 
 	// initialize the particle properties
@@ -1357,7 +1354,7 @@ void C4ParticleSystem::Create(C4ParticleDef *of_def, C4ParticleValueProvider &x,
 	// offset only for the drawing position - this is needed so that particles relative to an object work correctly
 	float drawingOffsetX(0.f), drawingOffsetY(0.f);
 
-	if (object != 0)
+	if (object != nullptr)
 	{
 		// for all types of particles add object's offset (mainly for collision etc.)
 		xoff = object->GetX();
@@ -1500,12 +1497,12 @@ C4ParticleDef *C4ParticleSystemDefinitionList::GetDef(const char *name, C4Partic
 {
 #ifndef USE_CONSOLE
 	// seek list
-	for (C4ParticleDef *def = first; def != 0; def=def->next)
+	for (C4ParticleDef *def = first; def != nullptr; def=def->next)
 		if (def != exclude && def->Name == name)
 			return def;
 #endif
 	// nothing found
-	return 0;
+	return nullptr;
 }
 
 void C4ParticleSystemDefinitionList::Clear()

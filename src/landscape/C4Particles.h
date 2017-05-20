@@ -109,10 +109,10 @@ typedef bool (C4ParticleProperties::*C4ParticleCollisionCallback) (C4Particle*);
 class C4ParticleValueProvider
 {
 private:
-	float startValue, endValue;
+	float startValue{0.f}, endValue{0.f};
 
 	// used by Random
-	float currentValue;
+	float currentValue{0.f};
 
 	union
 	{
@@ -131,11 +131,11 @@ private:
 
 	pcg32 rng; // for Random
 
-	size_t keyFrameCount;
+	size_t keyFrameCount{0};
 	std::vector<float> keyFrames;
 
-	C4ParticleValueProviderFunction valueFunction;
-	bool isConstant;
+	C4ParticleValueProviderFunction valueFunction{nullptr};
+	bool isConstant{true};
 
 	std::vector<C4ParticleValueProvider*> childrenValueProviders;
 
@@ -151,13 +151,13 @@ private:
 		VAL_TYPE_FLOAT,
 		VAL_TYPE_KEYFRAMES,
 	};
-	int typeOfValueToChange;
+	int typeOfValueToChange{VAL_TYPE_FLOAT};
 
 public:
 	bool IsConstant() const { return isConstant; }
 	bool IsRandom() const { return valueFunction == &C4ParticleValueProvider::Random; }
 	C4ParticleValueProvider() :
-		startValue(0.f), endValue(0.f), currentValue(0.f), rerollInterval(0), smoothing(0), keyFrameCount(0), valueFunction(nullptr), isConstant(true), floatValueToChange(nullptr), typeOfValueToChange(VAL_TYPE_FLOAT)
+		rerollInterval(0), smoothing(0), floatValueToChange(nullptr)
 	{ }
 	~C4ParticleValueProvider()
 	{
@@ -257,12 +257,12 @@ public:
 		
 		int phase;
 
-		float currentStretch;
-		float originalSize;
+		float currentStretch{1.f};
+		float originalSize{0.0001f};
 		float sizeX, sizeY;
-		float aspect;
+		float aspect{1.f};
 
-		float offsetX, offsetY;
+		float offsetX{0.f}, offsetY{0.f};
 
 		void SetOffset(float x, float y)
 		{
@@ -301,9 +301,7 @@ public:
 		void SetPosition(float x, float y, float size, float rotation = 0.f, float stretch = 1.f);
 		void SetPhase(int phase, C4ParticleDef *sourceDef);
 
-		DrawingData() : currentStretch(1.f), originalSize(0.0001f), aspect(1.f), offsetX(0.f), offsetY(0.f)
-		{
-		}
+		DrawingData() = default;
 
 	} drawingData;
 protected:
@@ -340,30 +338,27 @@ public:
 class C4ParticleChunk
 {
 private:
-	C4ParticleDef *sourceDefinition;
+	C4ParticleDef *sourceDefinition{nullptr};
 
-	uint32_t blitMode;
+	uint32_t blitMode{0};
 	
 	// whether the particles are translated according to the object's position
-	uint32_t attachment;
+	uint32_t attachment{C4ATTACH_None};
 
 	std::vector<C4Particle*> particles;
 	std::vector<C4Particle::DrawingData::Vertex> vertexCoordinates;
-	size_t particleCount;
+	size_t particleCount{0};
 
 	// OpenGL optimizations
-	GLuint drawingDataVertexBufferObject;
-	unsigned int drawingDataVertexArraysObject;
+	GLuint drawingDataVertexBufferObject{0};
+	unsigned int drawingDataVertexArraysObject{0};
 	void ClearBufferObjects();
 
 	// delete the particle at indexTo. If possible, replace it with the particle at indexFrom to keep the particles tighly packed
 	void DeleteAndReplaceParticle(size_t indexToReplace, size_t indexFrom);
 
 public:
-	C4ParticleChunk() : sourceDefinition(nullptr), blitMode(0), attachment(C4ATTACH_None), particleCount(0), drawingDataVertexBufferObject(0), drawingDataVertexArraysObject(0)
-	{
-
-	}
+	C4ParticleChunk() = default;
 	// this is noncopyable to make sure that the OpenGL buffers are never freed multiple times
 	C4ParticleChunk(const C4ParticleChunk&) = delete;
 	C4ParticleChunk& operator=(const C4ParticleChunk&) = delete;
@@ -396,13 +391,13 @@ private:
 	C4Object *targetObject;
 
 	// caching..
-	C4ParticleChunk *lastAccessedChunk;
+	C4ParticleChunk *lastAccessedChunk{nullptr};
 
 	// for making sure that the list is not drawn and calculated at the same time
 	CStdCSec accessMutex;
 
 public:
-	C4ParticleList(C4Object *obj = nullptr) : targetObject(obj), lastAccessedChunk(nullptr)
+	C4ParticleList(C4Object *obj = nullptr) : targetObject(obj)
 	{
 
 	}
@@ -431,9 +426,9 @@ class C4ParticleSystemDefinitionList
 {
 private:
 	// pointers to the last and first element of linked list of particle definitions
-	C4ParticleDef *first, *last;
+	C4ParticleDef *first{nullptr}, *last{nullptr};
 public:
-	C4ParticleSystemDefinitionList() : first(nullptr), last(nullptr) {}
+	C4ParticleSystemDefinitionList() = default;
 	void Clear();
 	C4ParticleDef *GetDef(const char *name, C4ParticleDef *exclude=nullptr);
 
