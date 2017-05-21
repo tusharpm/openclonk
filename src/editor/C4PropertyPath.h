@@ -42,7 +42,7 @@ public:
 	} get_path_type, set_path_type;
 
 public:
-	C4PropertyPath() {}
+	C4PropertyPath() = default;
 	C4PropertyPath(C4PropList *target);
 	C4PropertyPath(C4Effect *fx, C4Object *target_obj);
 	C4PropertyPath(const char *path) : get_path(path), root(path), get_path_type(PPT_Root), set_path_type(PPT_Root) {}

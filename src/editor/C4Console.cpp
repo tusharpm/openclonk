@@ -41,7 +41,7 @@
 
 using namespace OpenFileFlags;
 
-C4Console::C4Console(): C4ConsoleGUI()
+C4Console::C4Console()
 {
 	Active = false;
 	Editing = true;
@@ -671,9 +671,7 @@ void C4ConsoleGUI::ClearViewportMenu() {}
 bool C4ConsoleGUI::CreateConsoleWindow(C4AbstractApp * pApp)
 {
 	C4Rect r(0, 0, 400, 350);
-	if (!C4Window::Init(C4Window::W_Console, pApp, LoadResStr("IDS_CNS_CONSOLE"), &r))
-		return false;
-	return true;
+	return C4Window::Init(C4Window::W_Console, pApp, LoadResStr("IDS_CNS_CONSOLE"), &r) != nullptr;
 }
 void C4ConsoleGUI::DeleteConsoleWindow() {}
 void C4ConsoleGUI::DisplayInfoText(C4ConsoleGUI::InfoTextType, StdStrBuf&) {}

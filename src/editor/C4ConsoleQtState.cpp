@@ -347,7 +347,7 @@ void C4ConsoleQtMainWindow::OpenTranslationsOverview()
 	// Open/refresh translations overview dialogue
 	if (!state->translation_overview_dialogue)
 	{
-		state->translation_overview_dialogue.reset(new C4ConsoleQtLocalizeOverviewDlg(this));
+		state->translation_overview_dialogue = std::make_unique<C4ConsoleQtLocalizeOverviewDlg>(this);
 	}
 	state->translation_overview_dialogue->Refresh();
 	state->translation_overview_dialogue->show();

@@ -186,7 +186,7 @@ bool C4ConsoleGUI::FileSelect(StdStrBuf *sFilename, const char * szFilter, DWORD
 	{
 		// Multi-select: Return double-zero-terminated string list
 		if (!filenames.length()) return false;
-		for (auto fn : filenames)
+		for (const auto& fn : filenames)
 		{
 			sFilename->Append(fn.toUtf8());
 			sFilename->AppendChar('\0');

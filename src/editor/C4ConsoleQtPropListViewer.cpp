@@ -33,7 +33,7 @@
 /* Property delegate base class */
 
 C4PropertyDelegate::C4PropertyDelegate(const C4PropertyDelegateFactory *factory, C4PropList *props)
-	: QObject(), factory(factory), set_function_type(C4PropertyPath::PPT_SetFunction)
+	: factory(factory), set_function_type(C4PropertyPath::PPT_SetFunction)
 {
 	// Resolve getter+setter callback names
 	if (props)
@@ -236,7 +236,7 @@ void C4PropertyDelegateStringEditor::OpenLocalizationDialogue()
 			value = C4VPropList(value_proplist);
 		}
 		// Open dialogue on value
-		localization_dialogue.reset(new C4ConsoleQtLocalizeStringDlg(::Console.GetState()->window.get(), value));
+		localization_dialogue = std::make_unique<C4ConsoleQtLocalizeStringDlg>(::Console.GetState()->window.get(), value);
 		connect(localization_dialogue.get(), &C4ConsoleQtLocalizeStringDlg::accepted, this, [this]() {
 			// Usually, the proplist owned by localization_dialogue is the same as this->value
 			// However, it may have changed if there was an update call that modified the value while the dialogue was open
@@ -557,7 +557,7 @@ bool C4PropertyDelegateArray::IsPasteValid(const C4Value &val) const
 		ResolveElementDelegate();
 		for (int32_t i = 0; i < arr->GetSize(); ++i)
 		{
-			C4Value item = arr->GetItem(i);
+			const C4Value& item = arr->GetItem(i);
 			if (!element_delegate->IsPasteValid(item)) return false;
 		}
 	}
@@ -811,8 +811,7 @@ QColor C4PropertyDelegateColor::GetDisplayBackgroundColor(const C4Value &val, cl
 bool C4PropertyDelegateColor::IsPasteValid(const C4Value &val) const
 {
 	// Color is always int
-	if (val.GetType() != C4V_Int) return false;
-	return true;
+	return val.GetType() == C4V_Int;
 }
 
 void C4PropertyDelegateColor::OpenColorDialogue(C4PropertyDelegateLabelAndButtonWidget *editor) const
@@ -1895,8 +1894,7 @@ bool C4PropertyDelegateSound::IsPasteValid(const C4Value &val) const
 {
 	// Must be nil or a string
 	if (val.GetType() == C4V_Nil) return true;
-	if (val.GetType() != C4V_String) return false;
-	return true;
+	return val.GetType() == C4V_String;
 }
 
 
@@ -1922,8 +1920,7 @@ bool C4PropertyDelegateBool::GetPropertyValue(const C4Value &container, C4String
 bool C4PropertyDelegateBool::IsPasteValid(const C4Value &val) const
 {
 	// Must be a boolean
-	if (val.GetType() != C4V_Bool) return false;
-	return true;
+	return val.GetType() == C4V_Bool;
 }
 
 
@@ -2182,8 +2179,7 @@ bool C4PropertyDelegateCircle::IsPasteValid(const C4Value &val) const
 	C4ValueArray *val_arr = val.getArray();
 	if (!val_arr || val_arr->GetSize() != 3) return false;
 	for (int32_t i = 0; i < 3; ++i) if (val_arr->GetItem(i).GetType() != C4V_Int) return false;
-	if (val_arr->GetItem(0)._getInt() < 0) return false;
-	return true;
+	return val_arr->GetItem(0)._getInt() >= 0;
 }
 
 
@@ -2291,7 +2287,7 @@ bool C4PropertyDelegateGraph::IsEdgePasteValid(const C4Value &val) const
 	// Check validity of each edge
 	for (int32_t i_pt = 0; i_pt < arr->GetSize(); ++i_pt)
 	{
-		const C4Value pt = arr->GetItem(i_pt);
+		const C4Value& pt = arr->GetItem(i_pt);
 		const C4ValueArray *pta;
 		const C4PropList *ptp = pt.getPropList();
 		if (!ptp) return false;
@@ -3478,8 +3474,7 @@ bool C4ConsoleQtPropListModel::IsTargetReadonly() const
 	case C4V_PropList:
 	{
 		C4PropList *parent_proplist = target_value._getPropList();
-		if (parent_proplist->IsFrozen()) return true;
-		return false;
+		return parent_proplist->IsFrozen();
 	}
 	default:
 		return true;
